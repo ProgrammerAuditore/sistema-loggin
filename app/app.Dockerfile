@@ -6,6 +6,8 @@ WORKDIR /home/max98/workspace/app
 
 COPY package*.json /home/max98/workspace/app
 
+RUN npm install dotenv --save
+
 RUN npm install express --save
 
 RUN npm install express-handlebars --save

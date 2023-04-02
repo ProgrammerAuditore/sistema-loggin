@@ -1,52 +1,44 @@
-# CRUD de mascotas
-Este repositorio contiene un proyecto con acciones/funciones de un CRUD <br>
-usando ReactJS + Axios del lado de frontend y usando NodeJS + Express + Mongoose <br>
-del lado del backend. También se utilizo la base de datos de MongoDB para almacenar <br>
-los datos.
+# Sistema de Loggin
+Este repositorio contiene un proyecto con acciones/funciones de registrarse y entrar <br>
+usando tu cuenta de Facebook, Google y GitHub.
+Fue desarrollado usando NodeJS + express + morgan + nodemon + express-handlebars <br>
 
 # Requisitos funcionales
 Para hacer funcionar la aplicación se requiere tener instalado, como requisito lo siguiente:
-* NodeJS +14.x.x (o superior)
-* npm
-* docker
-* docker-compose
-* vagrant
-* MongoDB
-* Browser (Google Chrome, Firefox, etc.)
+* Requisitos minimos
+  * NodeJS +14.x.x (o superior)
+  * npm
+  * Browser (Google Chrome, Firefox, etc.)
+* Requisitos adicionales
+  * docker
+  * docker-compose
+  * vagrant
+  * MongoDB
 
-# Configuración Backend | API Mascota
-Es necesario crear un archivo `.env` del proyecto de backend dentro del path **./api**, opcionalmente puede hacer una copia del archivo `.env.test` con el nombre de **.env** que incluyen variables de entorno predeterminado o por default para funcionar con **docker-compose** y **vagrant**. <br> 
+# Configuración App | Sitema de Loggin
+Es necesario crear un archivo `.env` del proyecto de backend dentro del path **./app**, opcionalmente puede hacer una copia del archivo `.env.test` con el nombre de **.env** que incluyen variables de entorno predeterminado o por default para funcionar con **docker-compose** y **vagrant**. <br> 
 Finalmente las variables de entorno son: 
-### Variables de entorno para API | mascota
-*  **API_PORT** *(Requerido)* Puerto para API mascota por default es `3033`
-*  **API_CORS_ORIGIN** *(Requerido)* Es la URL del proyecto frontend de App Mascotas por default es `http://localhost:3033`
-
-### Variables de entorno para Mongo | base de datos
-*  **API_MONGO_HOST** *(Requerido)* El host **db-mongodb** es el nombre del servicio configurado en docker-compose (solo si usa docker-compose o vagrant). 
-*  **API_MONGO_PORT** *(Requerido)* El puerto **27080** es el puerto configurado en docker-compose para **mongo v4.0** (solo si usa docker-compose o vagrant).
-*  **API_MONGO_DATABASE** *(Requerido)* La base de datos **crud_mascotas** es por defecto.
-*  **API_MONGO_URI** *(Opcional)* <br/> Solo en caso de requerir usuario y contraseña, por ejemplo: `mongodb://<user>:<password>@<host>:<port>/<database>?<options>`. Este variable de entorno anula *API_MONGO_HOST*, *API_MONGO_PORT* y *API_MONGO_DATABASE*. 
+### Variables de entorno para App | Sitema de Loggin
+*  **API_PORT** *(Requerido)* Puerto para API mascota por default es `3010`
 
 ## Correr aplicación de forma independiente (Usando npm)
 #### Configuración previa
-Antes de ejecutar los proyectos Frontend (App Mascotas) y Backend (API Mascota) es necesario configurar el archivo `.env` en la ruta **./api*, la configuración necesario es la siguiente:
+Antes de ejecutar los proyectos Frontend (App Mascotas) y Backend (API Mascota) es necesario configurar el archivo `.env` en la ruta **./app*, la configuración necesario es la siguiente:
 ```text
 [..]
-# Mongo Database
-API_MONGO_HOST="localhost"
-API_MONGO_PORT=27017
-API_MONGO_DATABASE="app_mascotas"
+# Sistema de Loggin
+APP_PORT=3010
 [..]
 ```
 
-#### Ejecutar Frontend
-Es necesario ejecutar el proyecto frontend usando el sig. comando dentro del path **./mascotas-app/**
+#### Instalar dependencias
+Es necesario instalar dependencias sig. comando dentro del path **./app/**
 ```shell
-    npm run start
+    npm install
 ```
 
-#### Ejecutar Backend
-Es necesario ejecutar el proyecto backend usando el sig. comando dentro del path **./api/**
+#### Ejecutar App | Sitema de Loggin
+Es necesario ejecutar el proyecto usando el sig. comando dentro del path **./app/**
 ```shell
     npm run dev
 ```
@@ -55,13 +47,11 @@ Es necesario ejecutar el proyecto backend usando el sig. comando dentro del path
 Es necesario ejecutar el siguiente comando desde donde se encuetra el archivo **docker-compose.yml** 
 
 #### Configuración previa
-Antes de ejecutar los proyectos Frontend (App Mascotas) y Backend (API Mascota) es necesario configurar el archivo `.env` en la ruta **./api*, la configuración necesario es la siguiente:
+Antes de ejecutar los proyectos Frontend (App Mascotas) y Backend (API Mascota) es necesario configurar el archivo `.env` en la ruta **./app*, la configuración necesario es la siguiente:
 ```text
 [..]
-# Mongo Database
-API_MONGO_HOST="db-mongodb"
-API_MONGO_PORT=27080
-API_MONGO_DATABASE="app_mascotas"
+# Sistema de Loggin
+APP_PORT=3010
 [..]
 ```
 
@@ -83,13 +73,11 @@ Cabe mencionar que el archivo **docker-compose.yml** es creado y configurado esp
 Así tambien el comando "vagrant up" o "vagrant reload", levanta los servicios definidas en el archivo **docker-compose.yml** (Por defecto).
 
 #### Configuración previa
-Antes de ejecutar los proyectos Frontend (App Mascotas) y Backend (API Mascota) es necesario configurar el archivo `.env` en la ruta **./api*, la configuración necesario es la siguiente:
+Antes de ejecutar los proyectos Frontend (App Mascotas) y Backend (API Mascota) es necesario configurar el archivo `.env` en la ruta **./app*, la configuración necesario es la siguiente:
 ```text
 [..]
-# Mongo Database
-API_MONGO_HOST="db-mongodb"
-API_MONGO_PORT=27080
-API_MONGO_DATABASE="app_mascotas"
+# Sistema de Loggin
+APP_PORT=3010
 [..]
 ```
 
@@ -111,18 +99,7 @@ Por tal motivo, este comando se puede ejecutar las veces que sean necesarias.
 ```
 ##### Ejecutar los contenedor invidualmente y manualmente
 
-Este comando levanta en segundo plano el servicio *__service_db__*
-```shell
-   doc run -d -p 2780:2780 -v /home/vagrant/data:/data/db -t service_db mongod --port 27080 --dbpath /data/db
-```
-
 Este comando levanta en segundo plano el servicio *__service_api__*
 ```shell
-   doc run -p 3033:3033 -v /home/max98/workspace/api/node_modules -t service_api npm run dev --no-deps
+   doc run -p 3010:3010 -v /home/max98/workspace/app/node_modules -t service_app
 ```
-
-Este comando levanta en segundo plano el servicio *__service_app__*
-```shell
-   doc run -d -p 3080:3080 -v /home/max98/workspace/mascotas-app/node_modules -t service_app npm start --no-deps
-```
-

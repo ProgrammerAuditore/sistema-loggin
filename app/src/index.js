@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const exhbs = require('express-handlebars');
@@ -5,7 +6,8 @@ const path = require('path');
 const indexRoutes = require('./routes/index.routes');
 const morgan = require("morgan");
 
-app.set('port', 3010);
+// Establecer puerto
+app.set('port', process.env.APP_PORT || 3010);
 
 app.set('views', path.join(__dirname,'views'));
 
