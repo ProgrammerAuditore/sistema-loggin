@@ -1,0 +1,20 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "sistema de loggin",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "nodemon main"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "node_modules/*",
+      "node_modules",
+      "*/node_modules/*"
+    ],
+    "delay": 500
+  },
+  "keywords": [],
+  "author": "ProgrammerAuditore",
+  "license": "ISC"
+}

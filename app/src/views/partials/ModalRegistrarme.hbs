@@ -1,0 +1,67 @@
+<!-- Modal -->
+<div class="modal fade" id="registrarmeModal" tabindex="-1" aria-labelledby="registrarmeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="registrarmeModalLabel">Registrarme</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="form-registrarme" action="">
+            <div class="mb-3">
+              <label for="usuario" class="form-label">Usuario</label>
+              <input type="text" name="usuario" class="form-control" placeholder="Escribe un usuario" aria-describedby="usuarioId" required>
+            </div>
+            <div class="mb-3">
+              <label for="correo" class="form-label">Correo electrónico</label>
+              <input type="email" name="correo" class="form-control" placeholder="Escribe un correo" aria-describedby="correoId" required>
+            </div>
+            <div class="mb-3">
+              <label for="passwd" class="form-label">Contraseña</label>
+              <input type="password" name="passwd" class="form-control" placeholder="Escribe una contraseña" aria-describedby="passwdId" required>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-registrarme-cerrar" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btn-registrarme">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.7.0/firebase-auth.js";
+    const formRegistrarme = document.querySelector('#form-registrarme');
+    const btnCerrarRegistrarme = document.querySelector('.btn-registrarme-cerrar');
+    const btnRegistrarme = document.querySelector('.btn-registrarme');
+
+    btnRegistrarme.addEventListener('click', function(e){ 
+        e.preventDefault();
+        btnCerrarRegistrarme.click();
+        const inputs = Object.keys(formRegistrarme).map(key => formRegistrarme[key].value || 'input:error');
+        const usuarioNuevo = { usuario : inputs[0], correo : inputs[1], passwd : inputs[2]};
+        const resp = inputs.includes('input:error');
+       
+        if( resp ){
+          swal("Aviso", "Todo los campos son requeridos", "info");
+          return;
+        } 
+        
+          const auth = getAuth();
+          createUserWithEmailAndPassword(auth, usuarioNuevo.correo, usuarioNuevo.passwd)
+          .then((userCredential) => {
+              // Signed in
+              formRegistrarme.reset();
+              swal("Enhorabuena", "Se ha registrado exitosamente.", "success");
+          })
+          .catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              swal(`Error ${errorCode}`, `${errorMessage}`, "error");
+          });
+        
+
+    });
+
+</script>

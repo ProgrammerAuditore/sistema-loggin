@@ -1,0 +1,93 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <img
+        src="img/logo.png"
+        alt=""
+        width="30"
+        height="30"
+        class="d-inline-block align-text-top"
+      />
+      Sistema de loggin
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown  btn-nav-sesion" style="display: none;">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Agregar
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Notas</a></li>
+            <li><a class="dropdown-item" href="#">Tareas</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="d-flex">
+        <button type="button" class="btn btn-sm btn-outline-danger m-1 btn-nav-no-sesion" data-bs-toggle="modal" data-bs-target="#registrarmeModal" style="display: none;">Registrarme</button>
+        <button type="button" class="btn btn-sm btn-outline-success m-1 btn-nav-no-sesion" data-bs-toggle="modal" data-bs-target="#entrarModal"  style="display: none;">Entrar</button>
+        <button type="button" class="btn btn-sm btn-outline-danger m-1 btn-nav-sesion" id="btn-salir"  style="display: none;">Salir</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script type="module">
+  import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.7.0/firebase-auth.js";
+  const btnSalir = document.querySelector('#btn-salir');
+  const elNoSession = document.querySelectorAll('.btn-nav-no-sesion');
+  const elSession = document.querySelectorAll('.btn-nav-sesion');
+  const auth = getAuth();
+
+  btnSalir.addEventListener('click', function(e){
+    swal({
+      title: "Aviso",
+      text: "Estás seguro que deseas cerar sesión del sistema?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((cerarr_sesion) => {
+      if (cerarr_sesion) {
+        fncCerrarSesion();
+      } else {
+        swal("Aún no has cerrado sesión.");
+      }
+    });
+  });
+
+  function fncCerrarSesion(){
+      const auth = getAuth();
+      signOut(auth).then(() => {
+        swal("Enhorabuena", "Ha cerrado sesión exitosamente.", "success");
+      }).catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        swal(`Error ${errorCode}`, `${errorMessage}`, "error");
+      });
+  }
+
+  
+  onAuthStateChanged(auth, async (user) => {
+      if (user) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+          elNoSession.forEach(link => link.style.display = 'none');
+          elSession.forEach(link => link.style.display = 'block');
+      } else {
+          elNoSession.forEach(link => link.style.display = 'block');
+          elSession.forEach(link => link.style.display = 'none');
+      }
+  });
+
+</script>
