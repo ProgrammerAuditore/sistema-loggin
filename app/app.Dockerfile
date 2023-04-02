@@ -6,15 +6,17 @@ WORKDIR /home/max98/workspace/app
 
 COPY package*.json /home/max98/workspace/app
 
-RUN npm install dotenv --save
+#RUN npm install dotenv --save
 
-RUN npm install express --save
+#RUN npm install express --save
 
-RUN npm install express-handlebars --save
+#RUN npm install express-handlebars --save
 
-RUN npm i morgan --save
+#RUN npm install morgan --save
 
-RUN npm install --save-dev nodemon
+#RUN npm install --save-dev nodemon
+
+RUN npm install 
 
 COPY . .
 
