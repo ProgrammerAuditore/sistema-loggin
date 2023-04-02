@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  # Proyecto de Node JS + Expres + Mongoose
+  service_app:
+    container_name: sistema-loggin-container
+    build: 
+      context: ./app
+      dockerfile: app.Dockerfile
+    volumes:
+      - /home/max98/workspace/app
+      - /home/max98/workspace/app/node_modules
+    ports:
+      - "3010:3010"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3010"]
+      interval: 30s 
+      timeout: 10s
+      retries: 5
+    command: npm run dev
+
