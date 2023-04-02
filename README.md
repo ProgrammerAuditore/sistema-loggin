@@ -99,7 +99,9 @@ Por tal motivo, este comando se puede ejecutar las veces que sean necesarias.
 ```
 ##### Ejecutar los contenedor invidualmente y manualmente
 
-Este comando levanta en segundo plano el servicio *__service_api__*
+Este comando levanta en segundo plano el servicio *__service_app__*
 ```shell
-   doc run -p 3010:3010 -v /home/max98/workspace/app/node_modules -t service_app
+   doc run -d -p 3010:3010 -v /home/max98/workspace/app/node_modules -t service_app
 ```
+###### **Nota**
+* *doc* Es una alias para remplazar docker-compose
