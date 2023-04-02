@@ -19,11 +19,14 @@ Vagrant.configure("2") do |config|
     # Exponer el puerto interior de la caja ** Para Proyecto App **
     config.vm.network "forwarded_port", guest: 3010 , host: 3010, auto_correct: true
 
+    # Actualizar repositorio la caja de Ubuntu 18.04LTS
+    config.vm.provision "shell", inline: "apt-get update -qq -y"
+
     # Instalar docker y descagar imagen de docker (node:16.20-slim)
     # *OJO* : Corre solo una vez usando `vagrant up`
     config.vm.provision "install-docker",
         type: "docker",
-        images: ["node:16.20-slim", "mongo", "mongo:4.0"]
+        images: ["node:16.20-slim"]
     
     #config.vm.provider "vmware_fusion" do |v|
     #    v.vmx["vhv.enable"] = "TRUE"
@@ -44,10 +47,12 @@ Vagrant.configure("2") do |config|
         echo 'alias doc-again="docker-compose stop && docker-compose rm --force && docker-compose build --no-cache && docker-compose up"' >> ~/.bashrc
         source ~/.bashrc
         SCRIPT
-        
-    # Configuración de la provisión
-    config.vm.provision "shell", path: "setup.sh"
     
+    # Ejecuar el proyecto actual con Docker y docker-compose
+    config.vm.provision "run-setup",
+    type: "shell",
+    path: "./setup.sh"
+
     # Ejecuar el proyecto actual con Docker y docker-compose
     # *OJO* : Siempre corre usando `vagrant up`
     config.vm.provision "run-workspace",
