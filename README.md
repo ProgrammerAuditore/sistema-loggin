@@ -3,6 +3,13 @@ Este repositorio contiene un proyecto con acciones/funciones de registrarse y en
 usando tu cuenta de Facebook, Google y GitHub.
 Fue desarrollado usando NodeJS + express + morgan + nodemon + express-handlebars <br>
 
+# Screenshot
+![Preview 01](./screenshot/preview_01.jpg)
+
+![Preview 02](./screenshot/preview_02.jpg)
+
+![Preview 03](./screenshot/preview_03.jpg)
+
 # Requisitos funcionales
 Para hacer funcionar la aplicación se requiere tener instalado, como requisito lo siguiente:
 * Requisitos minimos
