@@ -54,7 +54,7 @@ Es necesario ejecutar el proyecto usando el sig. comando dentro del path **./app
 Es necesario ejecutar el siguiente comando desde donde se encuetra el archivo **docker-compose.yml** 
 
 #### Configuración previa
-Antes de ejecutar los proyectos Frontend (App Mascotas) y Backend (API Mascota) es necesario configurar el archivo `.env` en la ruta **./app*, la configuración necesario es la siguiente:
+Antes de ejecutar los proyecto es necesario configurar el archivo `.env` en la ruta **./app*, la configuración necesario es la siguiente:
 ```text
 [..]
 # Sistema de Loggin
